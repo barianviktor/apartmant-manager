@@ -1,28 +1,14 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database";
 
-export class User extends Model {}
-
-/* User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastName: {
-      type: DataTypes.STRING,
-    },
-  },
-  {
-    sequelize,
-  }
-);
- */
+export class User extends Model {
+  public id: number;
+  public firstName!: string;
+  public lastName!: string;
+  public email!: string;
+  public password!: string;
+  public validated!: boolean;
+}
 
 User.init(
   {
@@ -37,6 +23,14 @@ User.init(
       allowNull: false,
       unique: true,
     },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -49,6 +43,5 @@ User.init(
   {
     sequelize,
     timestamps: true,
-    modelName: "User",
   }
 );

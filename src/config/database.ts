@@ -8,8 +8,7 @@ import { Sequelize } from "sequelize";
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   logging: console.log,
-});
- */
+}); */
 
 export const sequelize = new Sequelize({
   dialect: "postgres",
@@ -18,5 +17,5 @@ export const sequelize = new Sequelize({
   username: "postgres",
   password: "apartmants-managger",
   database: "postgres",
-  logging: console.log,
+  //logging: console.log,
 });
