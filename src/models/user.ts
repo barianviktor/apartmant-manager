@@ -7,7 +7,7 @@ export class User extends Model {
   public firstName!: string;
   public lastName!: string;
   public password!: string;
-  public validaed!: boolean;
+  public validated!: boolean;
 }
 
 User.init(

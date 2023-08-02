@@ -1,30 +1,34 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database";
 
-export class Token extends Model {
-  public id: number;
-  public token: string;
-  public userId: number;
+export class Settlement extends Model {
+  public id!: number;
+  public zip!: string;
+  public settlement!: string;
+  public countyId!: number;
 }
 
-Token.init(
+Settlement.init(
   {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    token: {
-      type: DataTypes.STRING(500),
+    zip: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
-    userId: {
+    settlement: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    countyId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
     sequelize,
-    timestamps: true,
   }
 );

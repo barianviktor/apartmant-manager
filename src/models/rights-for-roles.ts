@@ -23,3 +23,18 @@ RightsForRoles.init(
     modelName: "Rights_For_Roles",
   }
 );
+
+/* import { DataTypes } from "sequelize";
+import { sequelize } from "../config/database";
+
+export const RightsForRoles = sequelize.define("RightsForRoles", {
+  RoleId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  RightId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+});
+ */
