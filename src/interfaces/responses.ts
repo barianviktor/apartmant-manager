@@ -2,7 +2,7 @@ export interface ResponseUser {
   id: number;
   firstName: string;
   lastName: string;
-  email: string;
+  username: string;
 }
 
 export interface LoginResponse {

@@ -1,11 +1,11 @@
 export interface RegisterRequestBody {
-  email: string;
+  username: string;
   password: string;
   firstName: string;
   lastName: string;
 }
 export interface LoginRequestBody {
-  email: string;
+  username: string;
   password: string;
 }
 

@@ -3,11 +3,11 @@ import { sequelize } from "../config/database";
 
 export class User extends Model {
   public id: number;
+  public username!: string;
   public firstName!: string;
   public lastName!: string;
-  public email!: string;
   public password!: string;
-  public validated!: boolean;
+  public validaed!: boolean;
 }
 
 User.init(
@@ -17,8 +17,7 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-
-    email: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

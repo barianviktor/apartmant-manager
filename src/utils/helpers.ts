@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { ResponseUser } from "../interfaces/responses";
+import { User } from "../models/user";
 enum JWTErrorMessages {
   EXPIRED = "jwt expired",
   INVALID = "invalid signature",
@@ -50,4 +51,12 @@ export const validButExpiredJWT = async (token: string): Promise<boolean> => {
     }
     return false;
   }
+};
+export const checkIfUsernameIsFree = async (username: string) => {
+  const userCount = await User.count({
+    where: {
+      username: username,
+    },
+  });
+  return userCount > 0 ? false : true;
 };

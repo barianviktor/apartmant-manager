@@ -2,18 +2,18 @@ import { Response } from "express";
 import { HttpStatusCodes } from "./http-status-codes";
 
 enum ResponseCodes {
-  EMAIL_ALREADY_EXISTS = 501,
+  USERNAME_ALREADY_EXISTS = 501,
   USER_NOT_FOUND_WITH_ID = 502,
   USER_ALREADY_VALIDATED = 503,
-  WRONG_EMAIL_OR_PASSWORD = 504,
+  WRONG_USERNAME_OR_PASSWORD = 504,
   INTERNAL_SERVER_ERROR = 505,
   ERROR_NEED_TO_RE_AUTHENTICATE = 505,
 }
 enum ResponseMessages {
-  EMAIL_ALREADY_EXISTS = "ERROR_EMAIL_ALREADY_EXISTS",
+  USERNAME_ALREADY_EXISTS = "ERROR_USERNAME_ALREADY_EXISTS",
   USER_NOT_FOUND_WITH_ID = "ERROR_USER_NOT_FOUND",
   USER_ALREADY_VALIDATED = "ERROR_USER_ALREADY_VALIDATED",
-  WRONG_EMAIL_OR_PASSWORD = "WRONG_EMAIL_OR_PASSWORD",
+  WRONG_USERNAME_OR_PASSWORD = "WRONG_USERNAME_OR_PASSWORD",
   INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR",
   ERROR_NEED_TO_RE_AUTHENTICATE = "ERROR_NEED_TO_RE_AUTHENTICATE",
 }
@@ -22,18 +22,18 @@ interface ErrorResponse {
   message: ResponseMessages;
 }
 
-export const ErrorEmailAlreadyExists = (res: Response): void => {
+export const ErrorUsernameAlreadyExists = (res: Response): void => {
   const error: ErrorResponse = {
-    code: ResponseCodes.EMAIL_ALREADY_EXISTS,
-    message: ResponseMessages.EMAIL_ALREADY_EXISTS,
+    code: ResponseCodes.USERNAME_ALREADY_EXISTS,
+    message: ResponseMessages.USERNAME_ALREADY_EXISTS,
   };
   res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send(JSON.stringify(error));
 };
 
-export const ErrorWrongEmailOrPassword = (res: Response): void => {
+export const ErrorWrongUsernameOrPassword = (res: Response): void => {
   const error: ErrorResponse = {
-    code: ResponseCodes.WRONG_EMAIL_OR_PASSWORD,
-    message: ResponseMessages.WRONG_EMAIL_OR_PASSWORD,
+    code: ResponseCodes.WRONG_USERNAME_OR_PASSWORD,
+    message: ResponseMessages.WRONG_USERNAME_OR_PASSWORD,
   };
   res.status(HttpStatusCodes.INTERNAL_SERVER_ERROR).send(JSON.stringify(error));
 };

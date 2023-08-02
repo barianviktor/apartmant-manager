@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/user";
 import { Token } from "../models/token";
 import {
+  checkIfUsernameIsFree,
   comparePassword,
   createJWT,
   createRefreshToken,
@@ -15,11 +16,11 @@ import {
   RegisterRequestBody,
 } from "../interfaces/requests";
 import {
-  ErrorEmailAlreadyExists,
   ErrorInternalServerError,
   ErrorNeedToReAuthenticate,
   ErrorUserNotFoundWithId,
-  ErrorWrongEmailOrPassword,
+  ErrorUsernameAlreadyExists,
+  ErrorWrongUsernameOrPassword,
 } from "../utils/responses";
 import { HttpStatusCodes } from "../utils/http-status-codes";
 import { LoginResponse, ResponseUser } from "src/interfaces/responses";
@@ -33,12 +34,12 @@ export const login = async (req: Request, res: Response) => {
 
   const user = await User.findOne({
     where: {
-      email: data.email,
+      username: data.username,
       validated: true,
     },
   });
   if (!user) {
-    ErrorWrongEmailOrPassword(res);
+    ErrorWrongUsernameOrPassword(res);
     return;
   }
 
@@ -47,7 +48,7 @@ export const login = async (req: Request, res: Response) => {
     user.getDataValue("password")
   );
   if (!correctPassword) {
-    ErrorWrongEmailOrPassword(res);
+    ErrorWrongUsernameOrPassword(res);
     return;
   }
 
@@ -62,7 +63,7 @@ export const login = async (req: Request, res: Response) => {
     id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
+    username: user.username,
   };
   let needToCreateToken = true;
   if (token) {
@@ -99,15 +100,15 @@ export const login = async (req: Request, res: Response) => {
 
 export const register = async (req: Request, res: Response) => {
   const data: RegisterRequestBody = req.body;
-  const emailIsFree = await checkIfEmailIsFree(data.email);
-  if (!emailIsFree) {
-    ErrorEmailAlreadyExists(res);
+  const usernameIsFree = await checkIfUsernameIsFree(data.username);
+  if (!usernameIsFree) {
+    ErrorUsernameAlreadyExists(res);
     return;
   }
 
   data.password = await hashPassword(data.password);
   const user = await User.create({
-    email: data.email,
+    username: data.username,
     password: data.password,
     firstName: data.firstName,
     lastName: data.lastName,
@@ -127,18 +128,8 @@ export const validateUser = async (req: Request, res: Response) => {
     ErrorUserNotFoundWithId(res);
     return;
   }
-  user.validated = true;
   user.save();
   res.status(HttpStatusCodes.OK).send();
-};
-
-const checkIfEmailIsFree = async (email: string) => {
-  const userCount = await User.count({
-    where: {
-      email: email,
-    },
-  });
-  return userCount > 0 ? false : true;
 };
 
 export const refreshToken = async (req: Request, res: Response) => {
@@ -181,7 +172,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email,
+    username: user.username,
   };
   if (responseUser.id != data.user_id || responseUser.id != user.id) {
     ErrorNeedToReAuthenticate(res);
