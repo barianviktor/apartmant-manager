@@ -17,5 +17,5 @@ export const sequelize = new Sequelize({
   username: "postgres",
   password: "apartmants-managger",
   database: "postgres",
-  //logging: console.log,
+  logging: false,
 });

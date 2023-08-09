@@ -59,7 +59,6 @@ export const setupRolesAndRights = async () => {
         description: role.description,
       },
     });
-    console.log("value:", value);
   });
 
   await rights.forEach(async (right: IRight) => {
@@ -69,7 +68,6 @@ export const setupRolesAndRights = async () => {
         description: right.description,
       },
     });
-    console.log("value:", value);
   });
 
   await rights_for_roles.forEach(async (rfr: IRightsForIRoles) => {
@@ -90,7 +88,6 @@ export const setupRolesAndRights = async () => {
           RightId: right.id,
         },
       });
-      console.log(value);
     }
   });
 };
