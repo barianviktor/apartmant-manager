@@ -1,12 +1,16 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database";
+import { ResponseImage } from "../interfaces/responses";
 export class Image extends Model { 
     public id!:number;
-    public path!:number;
+    public path!:string;
     public deleted!:boolean;
     public uploader!:number
-    public getResponseImage =async () => {
-        
+    public getResponseImage =async ():Promise<ResponseImage> => {
+        return {
+            id:this.id,
+            path:this.path
+        }
     }
 }
 

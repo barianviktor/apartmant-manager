@@ -63,3 +63,8 @@ export interface ResponseApartment {
   rooms: ResponseRoom[];
 }
 
+export interface ResponseImage {
+  id:number,
+  path:string,
+  
+}
