@@ -3,6 +3,7 @@ export interface RegisterRequestBody {
   password: string;
   firstName: string;
   lastName: string;
+  
 }
 export interface LoginRequestBody {
   username: string;

@@ -27,12 +27,20 @@ export const rights: IRight[] = [
     rightName: "canDeleteApartment",
     description: "RIGHT_FOR_CAN_DELETE_APARTMENT",
   },
+  {
+    rightName: "canEditProfile",
+    description:"RIGHT_FOR_CAN_EDIT_PROFILE"
+  }
 ];
 export const roles: IRole[] = [
   {
     roleName: "MODERATOR",
     description: "ROLE_FOR_APARTMENT_MODERATOR",
   },
+  {
+    roleName:"USER",
+    description:"ROLE_FOR_USER"
+  }
 ];
 export const rights_for_roles: IRightsForIRoles[] = [
   {
@@ -47,6 +55,10 @@ export const rights_for_roles: IRightsForIRoles[] = [
     rightName: "canEditApartment",
     roleName: "MODERATOR",
   },
+  {
+    rightName:"canEditProfile",
+    roleName:"USER"
+  }
 ];
 
 export const setupRolesAndRights = async () => {

@@ -3,6 +3,7 @@ export interface ResponseUser {
   firstName: string;
   lastName: string;
   username: string;
+  roles:string[]
 }
 
 export interface ResponsePropertyType {
@@ -61,3 +62,4 @@ export interface ResponseApartment {
   status: ResponseApartmentStatus;
   rooms: ResponseRoom[];
 }
+

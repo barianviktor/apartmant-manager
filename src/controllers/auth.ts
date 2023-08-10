@@ -25,6 +25,7 @@ import {
 import { HttpStatusCodes } from "../utils/http-status-codes";
 import { LoginResponse, ResponseUser } from "src/interfaces/responses";
 import { Op } from "sequelize";
+import { UsersForRoles } from "../models/user-for-roles";
 
 export const login = async (req: Request, res: Response) => {
   //const user = await User.create({ email: "hello", password: "password" });
@@ -59,12 +60,7 @@ export const login = async (req: Request, res: Response) => {
     order: [["id", "DESC"]],
   });
 
-  const responseUser: ResponseUser = {
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    username: user.username,
-  };
+  const responseUser: ResponseUser = await user.getResponseData()
   let needToCreateToken = true;
   if (token) {
     const validToken = await validateJWT(token.token);
@@ -76,7 +72,7 @@ export const login = async (req: Request, res: Response) => {
   if (needToCreateToken) {
     const refreshToken = await createRefreshToken(responseUser);
     token = await Token.create({
-      userId: user.getDataValue("id"),
+      userId: user.id,
       token: refreshToken,
     });
   }
@@ -95,7 +91,7 @@ export const login = async (req: Request, res: Response) => {
     refresh_token: token.token.split(".")[2],
   };
 
-  res.status(HttpStatusCodes.OK).send(JSON.stringify(response));
+  res.status(HttpStatusCodes.OK).send(response);
 };
 
 export const register = async (req: Request, res: Response) => {
@@ -113,6 +109,10 @@ export const register = async (req: Request, res: Response) => {
     firstName: data.firstName,
     lastName: data.lastName,
   });
+  const roleForUser = await UsersForRoles.create({
+    UserId:user.id,
+    RoleId:2
+  })
   res.status(HttpStatusCodes.CREATED).send();
 };
 
@@ -128,6 +128,7 @@ export const validateUser = async (req: Request, res: Response) => {
     ErrorUserNotFoundWithId(res);
     return;
   }
+  user.validated = true;
   user.save();
   res.status(HttpStatusCodes.OK).send();
 };
@@ -168,12 +169,7 @@ export const refreshToken = async (req: Request, res: Response) => {
   const responseUser: ResponseUser = JSON.parse(
     atob(token.token.split(".")[1])
   );
-  const newResponseUser: ResponseUser = {
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    username: user.username,
-  };
+  const newResponseUser: ResponseUser = await user.getResponseData()
   if (responseUser.id != data.user_id || responseUser.id != user.id) {
     ErrorNeedToReAuthenticate(res);
     return;
@@ -185,5 +181,5 @@ export const refreshToken = async (req: Request, res: Response) => {
     user: newResponseUser,
     refresh_token: data.refresh_token,
   };
-  res.status(HttpStatusCodes.OK).send(JSON.stringify(response));
+  res.status(HttpStatusCodes.OK).send(response);
 };
