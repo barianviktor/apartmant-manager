@@ -1,10 +1,16 @@
-import express, {Express} from "express";
-import {upload, handleUploadImage} from '../controllers/file'
-import path from "path";
-export const setupFileRoutes = (app:Express):void => {
-    const router = express.Router();
+import express, { Express } from "express";
+import { upload, handleUploadImage } from "../controllers/file";
+import { jwtMiddleware } from "../middleware/jwt";
 
-    router.post('/image/:id', upload.single('file'), handleUploadImage)
+export const setupFileRoutes = (app: Express): void => {
+  const router = express.Router();
 
-    app.use('/uploads', router)
-}
+  router.post(
+    "/image",
+    jwtMiddleware,
+    upload.single("file"),
+    handleUploadImage
+  );
+
+  app.use("/uploads", router);
+};
