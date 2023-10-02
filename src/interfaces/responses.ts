@@ -3,18 +3,16 @@ export interface ResponseUser {
   firstName: string;
   lastName: string;
   username: string;
-  roles:string[]
+  roles: string[];
 }
 
 export interface ResponsePropertyType {
   id: number;
-  type: string;
-  typeLabel: string;
+  string: string;
 }
 export interface ResponseRoomType {
   id: number;
-  type: string;
-  typeLabel: string;
+  string: string;
 }
 export interface LoginResponse {
   user: ResponseUser;
@@ -23,10 +21,8 @@ export interface LoginResponse {
 }
 
 export interface ResponseCountry {
-  id: number;
-  countryCode: string;
-  country: string;
-  countryLabel: string;
+  id: string;
+  string: string;
 }
 export interface ResponseCounty {
   id: number;
@@ -44,12 +40,12 @@ export interface ResponseSettlement {
 export interface ResponseRoom {
   id: number;
   type: ResponseRoomType;
+  area: number | null;
 }
 
 export interface ResponseApartmentStatus {
   id: number;
-  status: string;
-  statusLabel: string;
+  string: string;
 }
 
 export interface ResponseApartment {
@@ -61,10 +57,22 @@ export interface ResponseApartment {
   type: ResponsePropertyType;
   status: ResponseApartmentStatus;
   rooms: ResponseRoom[];
+  images: ResponseImage[];
 }
 
 export interface ResponseImage {
-  id:number,
-  path:string,
-  
+  id: number;
+  path: string;
+}
+
+export interface ResponseString {
+  id: number;
+  key: string;
+  string: string;
+}
+
+export interface ResponseLanguage {
+  key: string;
+  language: string;
+  string: string;
 }

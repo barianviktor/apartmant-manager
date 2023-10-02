@@ -17,6 +17,28 @@ export interface RefreshTokenRequestBody {
   user_id: number;
 }
 
+export interface RoomsRequestBody {
+  rooms: RequestRoom[];
+}
+
+export interface ApartmentRequestBody {
+  name: string;
+  settlementId: number;
+  address: string;
+  area: number;
+  type: number;
+  status: number;
+  rooms: RequestRoom[];
+  images: [];
+}
+
+export interface RequestRoom {
+  id?: number;
+  type: number;
+  apartmentId?: number;
+  area?: number;
+}
+
 export interface UserRequest extends Request {
   user_id: string;
 }

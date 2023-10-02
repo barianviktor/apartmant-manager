@@ -6,10 +6,10 @@ import { setupRoomTypes } from "./defaults/room-types";
 import { setupApartmentStatuses } from "./defaults/status";
 
 export const setupDefaultData = async () => {
+  await setupApartmentStatuses();
   await setupRolesAndRights();
   await setupLocations();
   await setupLanguagesAndStrings();
   await setupPropertyTypes();
   await setupRoomTypes();
-  await setupApartmentStatuses();
 };

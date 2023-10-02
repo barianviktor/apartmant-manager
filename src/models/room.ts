@@ -7,15 +7,18 @@ export class Room extends Model {
   public id!: number;
   public type!: number;
   public apartmentId!: number;
+  public area!: number;
   public getResponseRoom = async (): Promise<ResponseRoom> => {
     const roomType = await RoomType.findOne({
       where: {
         id: this.type,
       },
     });
+    const responseRoomType = await roomType.getResponseRoomType();
     return {
       id: this.id,
-      type: roomType,
+      type: responseRoomType,
+      area: this.area,
     };
   };
 }
@@ -34,6 +37,10 @@ Room.init(
     apartmentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+    },
+    area: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
   },
   {

@@ -3,8 +3,8 @@ import { sequelize } from "../config/database";
 
 export class Right extends Model {
   public id: number;
-  public rightName: string;
-  public description: string;
+  public string: string;
+  public description_string: string;
 }
 Right.init(
   {
@@ -13,12 +13,12 @@ Right.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    rightName: {
+    string: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    description: {
+    description_string: {
       type: DataTypes.STRING,
     },
   },

@@ -3,16 +3,12 @@ import { sequelize } from "../config/database";
 import { ResponseCountry } from "src/interfaces/responses";
 
 export class Country extends Model {
-  public id!: number;
-  public countryCode!: string;
-  public country!: string;
-  public countryLabel!: string;
+  public id!: string;
+  public string!: string;
   public getResponseCountry = async (): Promise<ResponseCountry> => {
     return {
       id: this.id,
-      countryCode: this.countryCode,
-      country: this.country,
-      countryLabel: this.countryLabel,
+      string: this.string,
     };
   };
 }
@@ -20,19 +16,11 @@ export class Country extends Model {
 Country.init(
   {
     id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.STRING,
       primaryKey: true,
     },
-    countryCode: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    country: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    countryLabel: {
+
+    string: {
       type: DataTypes.STRING,
       allowNull: false,
     },

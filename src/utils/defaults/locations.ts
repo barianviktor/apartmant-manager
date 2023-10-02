@@ -9,14 +9,13 @@ import { Op } from "sequelize";
 export interface ICountry {
   id?: number;
   country_code: string;
-  country: string;
-  country_label: string;
+  string: string;
 }
 
 export interface ICounty {
   id?: number;
   county: string;
-  countryId: number;
+  countryId: string;
 }
 
 export interface ISettlement {
@@ -29,9 +28,8 @@ export const setupLocations = async () => {
   await countries.forEach(async (country: ICountry) => {
     const value = await Country.findOrCreate({
       where: {
-        countryCode: country.country_code,
-        country: country.country,
-        countryLabel: country.country_label,
+        id: country.country_code,
+        string: country.string,
       },
     });
   });

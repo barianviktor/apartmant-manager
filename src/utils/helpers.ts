@@ -20,7 +20,7 @@ export const comparePassword = async (
 
 export const createJWT = async (
   payload: ResponseUser,
-  expiresIn = 300
+  expiresIn = 30
 ): Promise<string> => {
   return jwt.sign(payload, process.env.SECRET, { expiresIn });
 };

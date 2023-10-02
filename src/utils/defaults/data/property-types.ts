@@ -2,15 +2,15 @@ import { IPropertyType } from "../property-types";
 
 export const propertyTypes: IPropertyType[] = [
   {
-    type: "House",
-    typeLabel: "PROPERTY_TYPE_HOUSE",
+    string: "PROPERTY_TYPE_HOUSE",
   },
   {
-    type: "Apartment",
-    typeLabel: "PROPERTY_TYPE_APARTMENT",
+    string: "PROPERTY_TYPE_APARTMENT",
   },
   {
-    type: "Garage",
-    typeLabel: "PROPERTY_TYPE_Garage",
+    string: "PROPERTY_TYPE_GARAGE",
+  },
+  {
+    string: "PROPERTY_TYPE_STORAGE",
   },
 ];

@@ -26,7 +26,7 @@ export const getRoomTypes = async (req: Request, res: Response) => {
   if (roomsDB) {
     const rooms: ResponseRoomType[] = [];
     await roomsDB.map(async (room: RoomType) => {
-      const responseRoomType = await room.getResponseRoom();
+      const responseRoomType = await room.getResponseRoomType();
       rooms.push(responseRoomType);
     });
     res.status(HttpStatusCodes.OK).send(rooms);

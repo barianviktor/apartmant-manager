@@ -1,25 +1,25 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../config/database";
 
-export class RightsForRoles extends Model {
-  public RightId: number;
-  public RoleId: number;
+export class ImagesForApartments extends Model {
+  public apartmentId: number;
+  public imageId: number;
 }
 
-RightsForRoles.init(
+ImagesForApartments.init(
   {
-    RoleId: {
+    apartmentId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
 
-    RightId: {
+    imageId: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
     sequelize,
-    modelName: "Rights_For_Roles",
+    tableName: "Images_For_Apartments",
   }
 );

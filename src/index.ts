@@ -21,7 +21,6 @@ import { Image } from "./models/image";
 dotenv.config();
 
 const setup = async () => {
-
   await User.hasMany(Image, { foreignKey: "uploader" });
   await Image.belongsTo(User, { foreignKey: "uploader" });
 
@@ -33,9 +32,6 @@ const setup = async () => {
 
   await User.hasMany(Apartment, { foreignKey: "creator" });
   await Apartment.belongsTo(User, { foreignKey: "creator" });
-
-  await ApartmentStatus.hasMany(Apartment, { foreignKey: "status" });
-  await Apartment.belongsTo(ApartmentStatus, { foreignKey: "status" });
 
   await Settlement.hasMany(Apartment, { foreignKey: "settlementId" });
   await Apartment.belongsTo(Settlement, { foreignKey: "settlementId" });
@@ -57,6 +53,18 @@ const setup = async () => {
 
   await User.belongsToMany(Role, { through: "Users_For_Roles" });
   await Role.belongsToMany(User, { through: "Users_For_Roles" });
+
+  await Image.belongsToMany(Apartment, { through: "Images_For_Apartments" });
+  await Apartment.belongsToMany(Image, { through: "Images_For_Apartments" });
+
+  await Image.belongsToMany(User, { through: "Images_For_Users" });
+  await User.belongsToMany(Image, { through: "Images_For_Users" });
+
+  await Apartment.belongsToMany(User, { through: "Users_For_Apartments" });
+  await User.belongsToMany(Apartment, { through: "Users_For_Apartments" });
+
+  await ApartmentStatus.hasMany(Apartment, { foreignKey: "status" });
+  await Apartment.belongsTo(ApartmentStatus, { foreignKey: "status" });
 
   await Language.hasMany(String, { foreignKey: "language", sourceKey: "key" });
   await String.belongsTo(Language, {

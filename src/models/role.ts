@@ -3,8 +3,8 @@ import { sequelize } from "../config/database";
 
 export class Role extends Model {
   public id: number;
-  public roleName: string;
-  public description: string;
+  public string: string;
+  public description_string: string;
 }
 
 Role.init(
@@ -14,12 +14,12 @@ Role.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    roleName: {
+    string: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
-    description: {
+    description_string: {
       type: DataTypes.STRING,
     },
   },

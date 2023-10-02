@@ -4,14 +4,12 @@ import { ResponseApartmentStatus } from "src/interfaces/responses";
 
 export class ApartmentStatus extends Model {
   id!: number;
-  status!: string;
-  statusLabel!: string;
+  string!: string;
   public getResponseApartmentStatus =
     async (): Promise<ResponseApartmentStatus> => {
       return {
         id: this.id,
-        status: this.status,
-        statusLabel: this.statusLabel,
+        string: this.string,
       };
     };
 }
@@ -23,16 +21,14 @@ ApartmentStatus.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    statusLabel: {
+
+    string: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
   {
     sequelize,
+    tableName: "Apartment_Statuses",
   }
 );

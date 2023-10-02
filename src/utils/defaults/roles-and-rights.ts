@@ -29,8 +29,8 @@ export const rights: IRight[] = [
   },
   {
     rightName: "canEditProfile",
-    description:"RIGHT_FOR_CAN_EDIT_PROFILE"
-  }
+    description: "RIGHT_FOR_CAN_EDIT_PROFILE",
+  },
 ];
 export const roles: IRole[] = [
   {
@@ -38,9 +38,9 @@ export const roles: IRole[] = [
     description: "ROLE_FOR_APARTMENT_MODERATOR",
   },
   {
-    roleName:"USER",
-    description:"ROLE_FOR_USER"
-  }
+    roleName: "USER",
+    description: "ROLE_FOR_USER",
+  },
 ];
 export const rights_for_roles: IRightsForIRoles[] = [
   {
@@ -56,9 +56,9 @@ export const rights_for_roles: IRightsForIRoles[] = [
     roleName: "MODERATOR",
   },
   {
-    rightName:"canEditProfile",
-    roleName:"USER"
-  }
+    rightName: "canEditProfile",
+    roleName: "USER",
+  },
 ];
 
 export const setupRolesAndRights = async () => {
@@ -67,8 +67,8 @@ export const setupRolesAndRights = async () => {
   await roles.forEach(async (role: IRole) => {
     const value = await Role.findOrCreate({
       where: {
-        roleName: role.roleName,
-        description: role.description,
+        string: role.roleName,
+        description_string: role.description,
       },
     });
   });
@@ -76,8 +76,8 @@ export const setupRolesAndRights = async () => {
   await rights.forEach(async (right: IRight) => {
     const value = await Right.findOrCreate({
       where: {
-        rightName: right.rightName,
-        description: right.description,
+        string: right.rightName,
+        description_string: right.description,
       },
     });
   });
@@ -85,12 +85,12 @@ export const setupRolesAndRights = async () => {
   await rights_for_roles.forEach(async (rfr: IRightsForIRoles) => {
     const role = await Role.findOne({
       where: {
-        roleName: rfr.roleName,
+        string: rfr.roleName,
       },
     });
     const right = await Right.findOne({
       where: {
-        rightName: rfr.rightName,
+        string: rfr.rightName,
       },
     });
     if (right && role) {

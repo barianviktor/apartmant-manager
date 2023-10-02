@@ -14,19 +14,19 @@ export class User extends Model {
   public getResponseData = async (): Promise<ResponseUser> => {
     const usersForRolesDB = await UsersForRoles.findAll({
       where: {
-        UserId:this.id
-      }
-    })
-    const roles:string[]=[] 
+        UserId: this.id,
+      },
+    });
+    const roles: string[] = [];
 
     for (let i = 0; i < usersForRolesDB.length; i++) {
       const role = await Role.findOne({
         where: {
-          id: usersForRolesDB[i].RoleId
-        }
-      })
-      if(!roles.includes(role.roleName)){
-        roles.push(role.roleName)
+          id: usersForRolesDB[i].RoleId,
+        },
+      });
+      if (!roles.includes(role.string)) {
+        roles.push(role.string);
       }
     }
 
@@ -35,7 +35,7 @@ export class User extends Model {
       username: this.username,
       firstName: this.firstName,
       lastName: this.lastName,
-      roles:  roles
+      roles: roles,
     };
   };
 }

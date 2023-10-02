@@ -4,13 +4,11 @@ import { ResponseRoomType } from "../interfaces/responses";
 
 export class RoomType extends Model {
   public id!: number;
-  public type!: string;
-  public typeLabel!: string;
-  public getResponseRoom = async (): Promise<ResponseRoomType> => {
+  public string!: string;
+  public getResponseRoomType = async (): Promise<ResponseRoomType> => {
     return {
       id: this.id,
-      type: this.type,
-      typeLabel: this.typeLabel,
+      string: this.string,
     };
   };
 }
@@ -22,11 +20,7 @@ RoomType.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    type: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    typeLabel: {
+    string: {
       type: DataTypes.STRING,
       allowNull: false,
     },

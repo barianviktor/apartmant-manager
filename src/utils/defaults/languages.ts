@@ -7,6 +7,7 @@ import { strings } from "./data/string";
 export interface ILanguage {
   key: string;
   language: string;
+  string: string;
 }
 
 export interface IString {
@@ -16,24 +17,23 @@ export interface IString {
 }
 
 export const setupLanguagesAndStrings = async () => {
-  /* await languages.forEach(async (language: ILanguage) => {
+  for (let i = 0; i < languages.length; i++) {
     const value = await Language.findOrCreate({
       where: {
-        key: language.key,
-        language: language.language,
+        key: languages[i].key,
+        language: languages[i].language,
+        string: languages[i].string,
       },
     });
-  });
+  }
 
-  await strings.forEach(async (string: IString) => {
+  for (let i = 0; i < strings.length; i++) {
     const value = await String.findOrCreate({
       where: {
-        key: string.key,
-        language: string.language,
-      },
-      defaults: {
-        string: string.string,
+        key: strings[i].key,
+        language: strings[i].language,
+        string: strings[i].string,
       },
     });
-  }); */
+  }
 };

@@ -71,7 +71,15 @@ export const getCountries = async (req: Request, res: Response) => {
 };
 
 export const getCounties = async (req: Request, res: Response) => {
-  const countiesDB = await County.findAll();
+  const queryParams = req.query;
+  const country_id = queryParams.country_id;
+
+  const whereStatement: any = {};
+  if (country_id) whereStatement.countryId = country_id;
+
+  const countiesDB = await County.findAll({
+    where: whereStatement,
+  });
 
   if (countiesDB) {
     const counties: ResponseCounty[] = [];

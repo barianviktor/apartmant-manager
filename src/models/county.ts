@@ -6,7 +6,7 @@ import { Country } from "./country";
 export class County extends Model {
   public id!: number;
   public county!: string;
-  public countryId!: number;
+  public countryId!: string;
   public getResponseCounty = async (): Promise<ResponseCounty> => {
     const country = await Country.findOne({
       where: {
@@ -33,7 +33,7 @@ County.init(
       type: DataTypes.STRING,
     },
     countryId: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     },
   },
   { sequelize, tableName: "County" }
